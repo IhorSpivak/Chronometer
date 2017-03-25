@@ -15,12 +15,15 @@ public class MainActivity extends AppCompatActivity {
     Button btnStart;
     Button btnLap;
     Button btnStop;
+    Button btnReset;
+    private static final String RESET_TIME = "00:00:00:000";
 
     private EditText lapResult;
     private int laps = 1;
     private ScrollView svLap;
 
-    private Context context;
+    private Context mContext;
+
     private Chronometr chronometr;
     private Thread mThreadChrono;
 
@@ -30,29 +33,37 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        context = this;
+        mContext = this;
 
         tvTime = (TextView) findViewById(R.id.tvTime);
         btnStart = (Button) findViewById(R.id.btnStart);
         btnLap = (Button) findViewById(R.id.btnLap);
         btnStop = (Button) findViewById(R.id.btnStop);
+        btnReset = (Button) findViewById(R.id.btnReset);
         svLap = (ScrollView) findViewById(R.id.svLap);
         lapResult = (EditText) findViewById(R.id.lapResult);
 
         lapResult.setEnabled(false);
+
+
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if(chronometr == null){
-                    chronometr = new Chronometr(context);
+                    chronometr = new Chronometr(mContext);
                     mThreadChrono = new Thread(chronometr);
                     mThreadChrono.start();
                     chronometr.start();
 
                     laps = 1;
                     lapResult.setText("");
+
+                } else {
+                    tvTime.getText();
+                    mThreadChrono.start();
+                    chronometr.start();
 
                 }
 
@@ -65,11 +76,8 @@ public class MainActivity extends AppCompatActivity {
                 if(chronometr != null){
                     chronometr.stop();
                     mThreadChrono.interrupt();
-                    mThreadChrono = null;
-
-                    chronometr = null;
-
                 }
+
             }
         });
 
@@ -81,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                lapResult.append("LAP " + String.valueOf(laps) + String.valueOf(tvTime.getText()) + "\n");
+                lapResult.append("LAP " + String.valueOf(laps) + " " + String.valueOf(tvTime.getText()) + "\n");
 
                 laps++;
 
@@ -95,6 +103,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvTime.setText(RESET_TIME);
+
+            }
+        });
     }
 
     public void updateTimerText(final String time){

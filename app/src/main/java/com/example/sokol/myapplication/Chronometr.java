@@ -12,12 +12,12 @@ public class Chronometr implements Runnable {
     public static final long MILLIS_TO_MINUTES = 60000;
     public static final long MILLIS_TO_HOURS = 3600000;
 
-    private Context tvContext;
+    private Context mContext;
     private long mStartTime;
     private boolean mIsRunning;
 
-    public Chronometr(Context tvContext) {
-        this.tvContext = tvContext;
+    public Chronometr(Context context) {
+        mContext = context;
     }
 
     public void start(){
@@ -36,15 +36,18 @@ public class Chronometr implements Runnable {
         while (mIsRunning){
             long since = System.currentTimeMillis() - mStartTime;
 
-            int seconds = (int) ((since / 1000) % 60);
+            int seconds = (int) (since / 1000) % 60;
             int minutes = (int) ((since / MILLIS_TO_MINUTES) % 60);
-            int hours = (int) ((since / MILLIS_TO_HOURS) % 24);
             int millis = (int) since % 1000;
+            int hours = (int) ((since / (MILLIS_TO_HOURS)));
 
-            ((MainActivity)tvContext).updateTimerText(String.format(String.format("%02d:%02d:%02d:%03d"
-                    , hours, minutes, seconds, millis)));
+            ((MainActivity) mContext).updateTimerText(String.format("%02d:%02d:%02d:%03d", hours, minutes, seconds, millis));
 
-
+            try {
+                Thread.sleep(15);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
     }

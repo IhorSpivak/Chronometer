@@ -49,7 +49,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:allowUndo="false"
-                android:textColor="#E0F2F1"
+                android:textColor="#009688"
                 android:enabled="false" />
 
         </ScrollView>
@@ -66,8 +66,8 @@
 
         <Button
             android:id="@+id/btnStart"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:text="START"
@@ -77,17 +77,32 @@
 
         <Button
             android:id="@+id/btnLap"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="LAP"
             android:textSize="18dp"
             android:background="#1DE9B6" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:text="RESET"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/btnReset"
+            android:layout_weight="1"
+            android:background="#1DE9B6" />
+
         <Button
             android:id="@+id/btnStop"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:text="STOP"
